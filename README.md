@@ -4,27 +4,29 @@ The **Systems' Modeler: Engine** is an open-source library designed for procedur
 
 ### 🌟 Features
 
-- **Processes**: Isolated compute functions that transform input and state into output and updated state.
-- **Nodes**: Modular containers for computation, subscription, and publication.
-- **Graphs**: Scalable structures for orchestrating complex workflows.
+- Process-based computation with flexible state handling.
+- Node-based data flow for reactive processing.
+- Observable pattern for managing state changes and listeners.
+- JSON serialization & deserialization for process persistence.
+- Dynamic function execution using `Function` constructors.
 
 ### 🚀 Getting Started
 
 ```javascript
-const { Graph, Node, Process } = require('./path/to/engine.js');
+importScript('./path/to/engine.js');
 
 // Create a process
-const myProcess = new Process();
-myProcess.codeBody = `
-  output.result = input.a + input.b;
-`;
+const process = Process((input, state) => {
+    return { output: { result: input.value * 2 }, state };
+});
 
 // Create a node
-const myNode = new Node(myProcess);
+const node = Node(process);
+node.compute({ value: 5 }); // Output: { result: 10 }
 
 // Create a graph
-const myGraph = new Graph();
-myGraph.addNode(myNode);
+const graph = Graph();
+graph.addNode(node);
 
 // Compute
 const input = { a: 2, b: 3 };
@@ -39,6 +41,5 @@ console.log(result); // { result: 5 }
 **31 Dec 2024**: Release of Systems' Modeler Engine (MVP).
 
 **2025**:  
-1️⃣ **Python Library**: Expanding support to Python developers.  
-2️⃣ **Pre-built Modules**: Simplified development with reusable components.  
-3️⃣ **Systems' Modeler UI**: A drag-and-drop interface for rapid prototyping.
+1️⃣ **Pre-built Modules**: Simplified development with reusable components.  
+2️⃣ **Systems' Modeler UI**: A drag-and-drop interface for rapid prototyping.
